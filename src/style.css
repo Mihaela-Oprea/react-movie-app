@@ -74,16 +74,14 @@ h1 {
   width: 150px;
 }
 
-.button,
-.lucky-button {
+.button {
   background-color: #981515;
   border: solid 1px #811414;
 
   border-radius: 0px;
 }
 
-.button:hover,
-.lucky-button:hover {
+.button:hover {
   background-color: #6d0101;
   border: solid 1px #6d0101;
 }
@@ -101,6 +99,18 @@ h1 {
 
 .lucky-button {
   font-size: 15px;
+  color: black;
+  background-color: #e5e2e2;
+  border: solid 1px #e5e2e2;
+  border-radius: 0;
+  padding: 5px;
+  font-weight: bold;
+}
+
+.lucky-button:hover {
+  background-color: #c8c8c8;
+  color: black;
+  border: solid 1px #c8c8c8;
 }
 
 .remove-button {

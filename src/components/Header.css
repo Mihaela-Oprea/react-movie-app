@@ -18,7 +18,7 @@ body {
   font-size: 1.5rem;
   font-weight: bold;
   text-decoration: none;
-  color: red;
+  color: white;
 }
 
 .menu-toggle {
@@ -37,12 +37,12 @@ body {
 }
 
 header a {
-  color: #e50914;
+  color: white;
   text-decoration: none;
 }
 
 header a:hover {
-  color: #ff2b2b;
+  color: #b7b7b7;
 }
 
 @media (max-width: 768px) {
