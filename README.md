@@ -4,7 +4,7 @@ This is my **first personal React project**, a movie selection app inspired by t
 
 ## 🌟 Demo
 
-🌐 [Visit the website on Netlify](https://react-movie-app-08.netlify.app/) 
+🌐 [Visit the website on Netlify](https://react-movie-app-32.netlify.app/) 
 
 ---
 
