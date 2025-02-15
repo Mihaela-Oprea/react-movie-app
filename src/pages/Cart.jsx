@@ -43,19 +43,19 @@ export function Cart() {
           return (
             <Row
               key={product.id}
-              className="align-items-center mb-3 p-3 border-bottom"
+              className="align-items-center mb-4 border-bottom row py-4"
             >
               {/* Coloană pentru imaginea produsului */}
-              <Col xs={3} md={2} className="cart-image-container">
+              <Col xs={4} md={2} className="cart-image-container">
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="cart-image"
+                  className="cart-image w-100"
                 />
               </Col>
 
               {/* Coloană pentru titlu și preț */}
-              <Col xs={6} md={7}>
+              <Col xs={5} md={7} className="text-start">
                 <h6 className="mb-1">{product.name}</h6>
                 <p className="text-light mb-1">
                   {product.quantity} X {roundedPrice.toFixed(2)}$ ={" "}
@@ -68,6 +68,7 @@ export function Cart() {
                 <Button
                   variant="danger"
                   size="sm"
+                  className="w-md-auto"
                   onClick={() => handleCartRemove(product.id)}
                 >
                   Remove

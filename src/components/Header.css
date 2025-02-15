@@ -65,7 +65,6 @@ header a:hover {
 
   .nav-links.open {
     display: flex;
-    height: 200px;
     justify-content: space-evenly;
     background-color: #161616;
     padding: 40px;
@@ -76,7 +75,7 @@ header a:hover {
     padding: 10px 5px;
   }
 
-  header a {
-    font-size: 1.5rem;
+  .nav-links a {
+    font-size: 20px;
   }
 }

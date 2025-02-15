@@ -70,15 +70,22 @@ h1 {
   border: solid 1px #3e3e3e;
 }
 
-.button {
-  background-color: #6d0101;
-  border: solid 1px #6d0101;
+.cart-image {
+  width: 150px;
+}
+
+.button,
+.lucky-button {
+  background-color: #981515;
+  border: solid 1px #811414;
+
   border-radius: 0px;
 }
 
-.button:hover {
-  background-color: #de2424;
-  border: solid 1px #de2424;
+.button:hover,
+.lucky-button:hover {
+  background-color: #6d0101;
+  border: solid 1px #6d0101;
 }
 
 .button.secondary {
@@ -93,17 +100,7 @@ h1 {
 }
 
 .lucky-button {
-  border-radius: 0px !important;
   font-size: 15px;
-  border: solid 1px #ffd700;
-  background-color: #1b1703;
-  color: #ffd700;
-}
-
-.lucky-button:hover {
-  border: solid 1px #1b1703;
-  color: #1b1703;
-  background-color: #ffd900c5;
 }
 
 .remove-button {
@@ -339,6 +336,6 @@ h1 {
 
 @media (max-width: 540px) {
   .cart-image {
-    max-width: 70px;
+    max-width: 90px;
   }
 }
