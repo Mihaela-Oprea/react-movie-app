@@ -1,6 +1,6 @@
  # 🎬 Movie App
 
-This is my **first personal React project**, a movie selection app inspired by the concept of random recommendations. The **fully responsive** app allows users to get a random set of popular movies, explore their details, and add them to favorites or a shopping cart. It is built using **React, React Bootstrap, and the TMDB API**.
+This is my **first personal React project**, a movie selection app inspired by the concept of random recommendations. This **fully responsive** app allows users to get a random set of popular movies, explore their details, and add them to favorites or a shopping cart. It is built using **React, React Bootstrap, and the TMDB API**.
 
 ## 🌟 Demo
 
