@@ -49,8 +49,6 @@ export function Favorites() {
                   <FaStar className="favorite-icon" />
                 </div>
                 <Button
-                  variant="danger"
-                  size="sm"
                   className="remove-button"
                   onClick={() => handleRemoveFromFavorites(product.id)}
                 >

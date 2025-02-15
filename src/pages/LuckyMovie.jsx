@@ -3,7 +3,6 @@ import { Helmet } from "react-helmet-async";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-import { PiCloverLight } from "react-icons/pi";
 import { useFetch } from "../hooks/useFetch";
 import "../style.css";
 
@@ -16,14 +15,17 @@ export function LuckyMovie() {
   );
 
   function generateRandomMovies(moviesList, numberOfMoviesToSelect = 3) {
-    // `Math.random()` returnează un număr aleatoriu între 0 și 1, scăzând 0.5 din acel număr, obținem un număr între -0.5 și 0.5
-    // `sort()` folosește acest număr pentru a decide dacă două elemente vor schimba locurile
-    // Dacă numărul este pozitiv, elementele vor fi inversate, altfel nu, practic, acest lucru va amesteca lista de filme aleatoriu
-    const shuffledMovies = moviesList.sort(() => Math.random() - 0.5);
-    // `slice()` returnează o copie a elementelor din intervalul respectiv
-    const randomMovies = shuffledMovies.slice(0, numberOfMoviesToSelect);
-    // `setRandomMovies(randomMovies)` va schimba valoarea state-ului `randomMovies` cu cele 3 filme aleatorii selectate
-    setRandomMovies(randomMovies);
+    if (!moviesList || moviesList.length < numberOfMoviesToSelect) return;
+
+    // Creăm un set pentru a evita filme duplicate
+    const selectedMovies = new Set();
+
+    while (selectedMovies.size < numberOfMoviesToSelect) {
+      const randomIndex = Math.floor(Math.random() * moviesList.length); // Alegem un index aleatoriu
+      selectedMovies.add(moviesList[randomIndex]); // Adăugăm filmul la set (evitând duplicate)
+    }
+
+    setRandomMovies([...selectedMovies]); // Convertim set-ul în array și actualizăm starea
   }
 
   // Așteptăm ca datele să fie încărcate
@@ -54,9 +56,7 @@ export function LuckyMovie() {
           onClick={() => generateRandomMovies(moviesData.results)} // Schimbăm cele 3 filme când se apasă butonul
           className="lucky-button"
         >
-          <PiCloverLight size={18} /> {/* Iconița pentru buton */}
-          <br />
-          I'm Feeling Lucky
+          Feeling Lucky
         </Button>
 
         {/* 4 Carduri cu filme random */}
@@ -74,7 +74,7 @@ export function LuckyMovie() {
                 />
                 <Card.Body>
                   <Card.Title>{movie.title}</Card.Title> {/* Titlul filmului */}
-                  <Card.Text className="text-danger">
+                  <Card.Text>
                     {movie.vote_average}⭐ {/* Rating-ul filmului */}
                   </Card.Text>
                 </Card.Body>

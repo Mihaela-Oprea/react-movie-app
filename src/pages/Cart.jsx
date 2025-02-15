@@ -43,7 +43,7 @@ export function Cart() {
           return (
             <Row
               key={product.id}
-              className="align-items-center mb-4 border-bottom row py-4"
+              className="align-items-center mb-4 border-bottom row py-4 ms-0 me-0"
             >
               {/* Coloană pentru imaginea produsului */}
               <Col xs={4} md={2} className="cart-image-container">
@@ -66,9 +66,7 @@ export function Cart() {
               {/* Coloană pentru butonul de ștergere */}
               <Col xs={3} md={3} className="text-end">
                 <Button
-                  variant="danger"
-                  size="sm"
-                  className="w-md-auto"
+                  className="cart-remove-button remove-button w-md-auto"
                   onClick={() => handleCartRemove(product.id)}
                 >
                   Remove

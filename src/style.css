@@ -44,7 +44,7 @@ h1 {
 }
 
 .search-bar input::placeholder {
-  color: white;
+  color: rgba(171, 171, 171, 0.788);
   opacity: 1;
 }
 
@@ -77,7 +77,6 @@ h1 {
 .button {
   background-color: #981515;
   border: solid 1px #811414;
-
   border-radius: 0px;
 }
 
@@ -97,25 +96,38 @@ h1 {
   border-color: gold;
 }
 
-.lucky-button {
-  font-size: 15px;
-  color: black;
-  background-color: #e5e2e2;
-  border: solid 1px #e5e2e2;
-  border-radius: 0;
-  padding: 5px;
-  font-weight: bold;
+.lucky-button,
+.remove-button {
+  padding: 10px 40px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 10px;
+  cursor: pointer;
+  display: inline-block;
+  background-color: transparent;
+  border: 3px solid #c7ba04;
+  border-radius: 50px;
+  transition: all 0.15s ease-in-out;
+  color: #c7ba04;
 }
 
 .lucky-button:hover {
-  background-color: #c8c8c8;
-  color: black;
-  border: solid 1px #c8c8c8;
+  box-shadow: 0 0 10px 0 #cec807 inset, 0 0 20px 2px #c7ba04;
+  border: 3px solid #decc08;
+  background-color: #000;
 }
 
 .remove-button {
-  width: 100px;
-  margin-top: 10px;
+  margin-top: 15px;
+  border: 3px solid #cf0000;
+  color: #cf0000;
+  font-size: 13px;
+}
+
+.remove-button:hover {
+  box-shadow: 0 0 10px 0 #cf0000 inset, 0 0 20px 2px #cf0000;
+  border: 3px solid #cf0000;
+  background-color: #000;
 }
 
 .movies-container {
@@ -128,6 +140,7 @@ h1 {
 }
 
 .card-lucky {
+  box-shadow: 1px 1px 17px rgba(255, 255, 255, 0.097);
   width: 15rem;
   background-color: #000000;
   padding: 0;
@@ -153,6 +166,7 @@ h1 {
 }
 
 .favorite-item {
+  width: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -164,20 +178,6 @@ h1 {
 .image-container {
   position: relative;
   display: inline-block;
-}
-
-.favorite-image {
-  width: 120px;
-  height: auto;
-  border-radius: 8px;
-}
-
-.favorite-icon {
-  position: absolute;
-  bottom: -5px;
-  right: -5px;
-  color: gold;
-  font-size: 20px;
 }
 
 .product-page {
@@ -282,15 +282,9 @@ h1 {
   margin-top: 10px;
 }
 
-@media (min-width: 820px) {
-  .cast-image {
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-  }
-
-  .similar-movies-image {
-    height: 230px;
+@media (min-width: 850px) {
+  .favorite-item {
+    width: 200px;
   }
 }
 
@@ -330,8 +324,7 @@ h1 {
   }
 
   .lucky-button {
-    padding: 5px;
-    flex-direction: column-reverse;
+    padding: 10px;
     align-items: center;
   }
 
@@ -342,10 +335,49 @@ h1 {
   .movies-container {
     justify-content: center;
   }
+
+  .cart-remove-button.remove-button {
+    padding: 10px !important;
+  }
 }
 
 @media (max-width: 540px) {
   .cart-image {
     max-width: 90px;
+  }
+}
+
+.favorites-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.favorite-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 1px 1px 17px rgb(0, 0, 0);
+}
+
+.favorite-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  color: #f39c12;
+}
+
+@media (min-width: 768px) {
+  .favorite-item {
+    width: 120px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .favorite-item {
+    width: 250px;
   }
 }
