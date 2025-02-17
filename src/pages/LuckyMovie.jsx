@@ -20,6 +20,9 @@ export function LuckyMovie() {
   function generateRandomMovies(moviesList, numberOfMoviesToSelect = 3) {
     // Verificăm dacă moviesList există și are suficiente filme pentru a selecta
     if (!moviesList || moviesList.length < numberOfMoviesToSelect) return;
+     /* !moviesList → Dacă lista este `null` / `undefined`, nu avem date, deci oprim funcția.  
+     moviesList.length < numberOfMoviesToSelect → Dacă sunt prea puține filme, nu putem alege.  
+     || → Dacă una dintre condiții e `true`, funcția se oprește. */ 
 
     let selectedMovies = []; // Folosim un array pentru a stoca filmele
 
