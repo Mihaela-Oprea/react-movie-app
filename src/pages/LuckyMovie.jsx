@@ -18,22 +18,37 @@ export function LuckyMovie() {
 
   // Funcție pentru generarea unui număr specific de filme aleatorii
   function generateRandomMovies(moviesList, numberOfMoviesToSelect = 3) {
-    // Verificăm dacă lista de filme este validă și conține suficiente filme
+    // Verificăm dacă moviesList există și are suficiente filme pentru a selecta
     if (!moviesList || moviesList.length < numberOfMoviesToSelect) return;
 
-    // Creăm un set pentru a evita selecția de filme duplicate
-    const selectedMovies = new Set();
+    let selectedMovies = []; // Folosim un array pentru a stoca filmele
 
-    while (selectedMovies.size < numberOfMoviesToSelect) {
-      // Alegem un index aleatoriu din lista filmelor disponibile
+    while (selectedMovies.length < numberOfMoviesToSelect) {
+      // Generăm un index aleatoriu între 0 și lungimea listei - 1
+      // Math.random() returnează un număr între 0 și 1
+      // Înmulțim cu moviesList.length pentru a obține un număr între 0 și ultima poziție a listei
+      // Math.floor() rotunjește rezultatul în jos pentru a obține un număr întreg
       const randomIndex = Math.floor(Math.random() * moviesList.length);
-      
-      // Adăugăm filmul selectat în set, prevenind astfel duplicatele
-      selectedMovies.add(moviesList[randomIndex]);
+      const randomMovie = moviesList[randomIndex];
+
+      // Verificăm dacă filmul nu este deja în lista selectată
+      let alreadyExists = false;
+      for (let i = 0; i < selectedMovies.length; i++) {
+        // Comparăm ID-ul fiecărui film din selectedMovies cu ID-ul filmului ales aleatoriu
+        if (selectedMovies[i].id === randomMovie.id) {
+          alreadyExists = true; // Dacă există, setăm alreadyExists la true
+          break; // Oprim căutarea pentru a nu continua inutil
+        }
+      }
+
+      // Dacă filmul nu este deja în listă (!alreadyExists este echivalent cu alreadyExists === false), îl adăugăm
+      if (!alreadyExists) {
+        selectedMovies.push(randomMovie); // push adaugă un element la finalul array-ului
+      }
     }
 
-    // Convertim set-ul într-un array și actualizăm starea cu filmele selectate
-    setRandomMovies([...selectedMovies]);
+    // Actualizăm starea cu filmele selectate
+    setRandomMovies(selectedMovies);
   }
 
   // Verificăm dacă datele despre filme sunt disponibile
