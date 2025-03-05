@@ -7,80 +7,100 @@ import { useFetch } from "../hooks/useFetch";
 import "../style.css";
 
 export function LuckyMovie() {
-  const [randomMovies, setRandomMovies] = useState([]); // Filmele random ce vor fi afișate
+  // Stare pentru a reține filmele random selectate
+  const [randomMovies, setRandomMovies] = useState([]);
 
-  // Folosim hook-ul useFetch pentru a obține filmele populare
+  // Folosim useFetch pentru a obține lista de filme populare de pe TMDb
+  // Aceasta returnează un obiect cu datele filmelor populare
   const moviesData = useFetch(
     `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_TMDB_API_KEY}&page=1`
   );
 
+  // Funcție pentru generarea unui număr specific de filme aleatorii
   function generateRandomMovies(moviesList, numberOfMoviesToSelect = 3) {
+    // Verificăm dacă moviesList există și are suficiente filme pentru a selecta
     if (!moviesList || moviesList.length < numberOfMoviesToSelect) return;
+     /* !moviesList → Dacă lista este `null` / `undefined`, nu avem date, deci oprim funcția.  
+     moviesList.length < numberOfMoviesToSelect → Dacă sunt prea puține filme, nu putem alege.  
+     || → Dacă una dintre condiții e `true`, funcția se oprește. */ 
 
-    // Creăm un set pentru a evita filme duplicate
-    const selectedMovies = new Set();
+    let selectedMovies = []; // Folosim un array pentru a stoca filmele
 
-    while (selectedMovies.size < numberOfMoviesToSelect) {
-      const randomIndex = Math.floor(Math.random() * moviesList.length); // Alegem un index aleatoriu
-      selectedMovies.add(moviesList[randomIndex]); // Adăugăm filmul la set (evitând duplicate)
+    while (selectedMovies.length < numberOfMoviesToSelect) {
+      // Generăm un index aleatoriu între 0 și lungimea listei - 1
+      // Math.random() returnează un număr între 0 și 1
+      // Înmulțim cu moviesList.length pentru a obține un număr între 0 și ultima poziție a listei
+      // Math.floor() rotunjește rezultatul în jos pentru a obține un număr întreg
+      const randomIndex = Math.floor(Math.random() * moviesList.length);
+      const randomMovie = moviesList[randomIndex];
+
+      // Verificăm dacă filmul nu este deja în lista selectată
+      let alreadyExists = false;
+      for (let i = 0; i < selectedMovies.length; i++) {
+        // Comparăm ID-ul fiecărui film din selectedMovies cu ID-ul filmului ales aleatoriu
+        if (selectedMovies[i].id === randomMovie.id) {
+          alreadyExists = true; // Dacă există, setăm alreadyExists la true
+          break; // Oprim căutarea pentru a nu continua inutil
+        }
+      }
+
+      // Dacă filmul nu este deja în listă (!alreadyExists este echivalent cu alreadyExists === false), îl adăugăm
+      if (!alreadyExists) {
+        selectedMovies.push(randomMovie); // push adaugă un element la finalul array-ului
+      }
     }
 
-    setRandomMovies([...selectedMovies]); // Convertim set-ul în array și actualizăm starea
+    // Actualizăm starea cu filmele selectate
+    setRandomMovies(selectedMovies);
   }
 
-  // Așteptăm ca datele să fie încărcate
+  // Verificăm dacă datele despre filme sunt disponibile
+  // Dacă încă nu avem date, afișăm un mesaj de încărcare
   if (!moviesData) {
-    return <div>Loading...</div>; // Afișăm un mesaj de încărcare dacă nu avem datele
+    return <div>Loading...</div>;
   }
 
-  // Generăm 3 filme random imediat ce avem filmele populare
+  // Dacă lista de filme random este goală, generăm automat 3 filme random
   if (randomMovies.length === 0) {
-    generateRandomMovies(moviesData.results); // Apelăm funcția pentru a genera filmele
+    generateRandomMovies(moviesData.results);
   }
 
   return (
     <div className="d-flex flex-column align-items-center">
       <Container className="main-content d-flex flex-column align-items-center">
-        {/* Adaugăm Helmet pentru titlul și descrierea paginii */}
+        {/* Helmet setează titlul și descrierea paginii pentru SEO */}
         <Helmet>
-          <title>MovieWeb | Lucky Movie</title>{" "}
-          {/* Titlul paginii în browser */}
+          <title>MovieWeb | Lucky Movie</title> {/* Titlul paginii */}
           <meta
             name="description"
-            content="Feeling lucky? Discover a random selection of popular movies and find your next favorite!" // Descrierea pentru SEO
+            content="Feeling lucky? Discover a random selection of popular movies and find your next favorite!" // Meta descriere pentru SEO
           />
         </Helmet>
 
-        {/* Butonul pătrat cu iconiță, mai lat și mai scund */}
+        {/* Buton pentru a genera un nou set de filme random */}
         <Button
-          onClick={() => generateRandomMovies(moviesData.results)} // Schimbăm cele 3 filme când se apasă butonul
+          onClick={() => generateRandomMovies(moviesData.results)} // La apăsare, generează filme noi
           className="lucky-button"
         >
           Feeling Lucky
         </Button>
 
-        {/* 4 Carduri cu filme random */}
+        {/* Container pentru afișarea filmelor selectate */}
         <div className="movies-container">
-          {randomMovies.map(
-            (
-              movie // Mapăm fiecare film din array-ul randomMovies
-            ) => (
-              <Card key={movie.id} className="card-lucky m-3">
-                {" "}
-                {/* Fiecare film are un card unic identificat prin `movie.id` */}
-                <Card.Img
-                  variant="top"
-                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} // Imaginea filmului
-                />
-                <Card.Body>
-                  <Card.Title>{movie.title}</Card.Title> {/* Titlul filmului */}
-                  <Card.Text>
-                    {movie.vote_average}⭐ {/* Rating-ul filmului */}
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            )
-          )}
+          {randomMovies.map((movie) => (
+            <Card key={movie.id} className="card-lucky m-3"> {/* Card pentru fiecare film */}
+              <Card.Img
+                variant="top"
+                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} // Afișăm posterul filmului
+              />
+              <Card.Body>
+                <Card.Title>{movie.title}</Card.Title> {/* Titlul filmului */}
+                <Card.Text>
+                  {movie.vote_average}⭐ {/* Afișăm rating-ul filmului */}
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          ))}
         </div>
       </Container>
     </div>
