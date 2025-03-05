@@ -33,7 +33,7 @@ export function Favorites() {
         - `?.` returnează `undefined` în loc să încerce să acceseze `length`, evitând astfel o eroare fatală.
       */}
       {favoritesState?.products?.length === 0 ? (
-        <p>Nu ai produse în favorite.</p>
+        <p>You have no products in your favorites.</p>
       ) : (
         <div className="favorites-container">
           {/* Mapăm prin produsele favorite pentru a le afișa */}

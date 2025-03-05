@@ -29,7 +29,7 @@ export function Cart() {
 
       {/* Verificăm dacă sunt produse în coș și afișăm un mesaj dacă nu sunt */}
       {state.products.length === 0 ? (
-        <p>Nu ai produse în coș.</p>
+        <p>You have no products in your cart.</p>
       ) : (
         // Dacă există produse, le mapăm pentru a le afișa în listă
         state.products.map((product) => {

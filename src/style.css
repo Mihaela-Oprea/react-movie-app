@@ -1,3 +1,8 @@
+button {
+  --bs-btn-active-bg: #161616 !important;
+  --bs-btn-active-border-color: #c8c8c8 !important;
+}
+
 * {
   box-sizing: border-box;
 }
